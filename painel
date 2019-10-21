@@ -1,0 +1,74 @@
+public class Panels extends JFrame {
+
+    public Panels(){
+        setTitle("Paineis");
+        setBackground(Color.LIGHT_yellow);
+        setSize(800,500);
+        setResizable(false);
+        setLayout();
+        pack();
+    }
+
+    private void setLayout(){
+        JPanel panel = new JPanel();
+
+        JPanel rightPanel = new JPanel();
+        rightPanel.setLayout(new BorderLayout(1,1));
+        rightPanel.setBackground(Color.LIGHT_yellow);
+
+        // Cria os paineis
+        JPanel pNorte = createPanel(Color.RED,"Norte");
+        JPanel pSul = createPanel(Color.BLUE,"Sul");
+        JPanel pCentro = createPanel(Color.WHITE,"Centro");
+        JPanel pLeste = createPanel(Color.YELLOW,"Leste");
+        JPanel pOeste = createPanel(Color.SILVER,"Oeste");
+
+        rightPanel.add(pNorte, BorderLayout.NORTH);
+        rightPanel.add(pSul, BorderLayout.SOUTH);
+        rightPanel.add(pCentro, BorderLayout.CENTER);
+        rightPanel.add(pLeste, BorderLayout.EAST);
+        rightPanel.add(pOeste, BorderLayout.WEST);
+        rightPanel.setVisible(true);
+        //---------------------------------------------------------------
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+        leftPanel.setBackground(Color.LIGHT_GRAY);
+
+        // Cria os checkbox's
+        JCheckBox cxNorte = createCheckBox("Norte", pNorte);
+        JCheckBox cxSul = createCheckBox("Sul", pSul);
+        JCheckBox cxCentro = createCheckBox("Centro", pCentro);
+        JCheckBox cxLeste = createCheckBox("Leste", pLeste);
+        JCheckBox cxOeste = createCheckBox("Oeste", pOeste);
+
+        leftPanel.add(cxNorte);
+        leftPanel.add(cxSul);
+        leftPanel.add(cxCentro);
+        leftPanel.add(cxLeste);
+        leftPanel.add(cxOeste);
+        //
+        panel.add(leftPanel);
+        panel.add(rightPanel);
+        add(panel);
+    }
+
+    private JPanel createPanel(Color color, String text){
+        JPanel panel = new JPanel();
+        panel.setBackground(color);
+        panel.add(new JLabel(text));
+        return panel;
+    }
+
+    private JCheckBox createCheckBox(String text, JPanel listener){
+        JCheckBox checkBox = new JCheckBox(text);
+        checkBox.setSelected(true);
+        checkBox.setAlignmentX(Component.LEFT_ALIGNMENT);
+        checkBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listener.setVisible(checkBox.isSelected());
+            }
+        });
+        return checkBox;
+    }
+}
